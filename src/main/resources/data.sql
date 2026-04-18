@@ -1,0 +1,3 @@
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (1, 'Real Madrid', 'La Liga', 'España');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (2, 'FC Barcelona', 'La Liga', 'España');
+-- continue with the rest...
