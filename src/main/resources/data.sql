@@ -1,3 +1,20 @@
 INSERT INTO equipo (id, nombre, liga, pais) VALUES (1, 'Real Madrid', 'La Liga', 'España');
 INSERT INTO equipo (id, nombre, liga, pais) VALUES (2, 'FC Barcelona', 'La Liga', 'España');
--- continue with the rest...
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (3, 'Manchester United', 'Premier League', 'Inglaterra');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (4, 'Liverpool FC', 'Premier League', 'Inglaterra');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (5, 'Bayern Munich', 'Bundesliga', 'Alemania');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (6, 'Borussia Dortmund', 'Bundesliga', 'Alemania');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (7, 'Paris Saint-Germain', 'Ligue 1', 'Francia');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (8, 'Olympique Lyon', 'Ligue 1', 'Francia');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (9, 'Juventus', 'Serie A', 'Italia');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (10, 'AC Milan', 'Serie A', 'Italia');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (11, 'Ajax Amsterdam', 'Eredivisie', 'Países Bajos');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (12, 'Atlético Madrid', 'La Liga', 'España');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (13, 'Chelsea FC', 'Premier League', 'Inglaterra');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (14, 'RB Leipzig', 'Bundesliga', 'Alemania');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (15, 'AS Monaco', 'Ligue 1', 'Francia');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (16, 'Inter Milan', 'Serie A', 'Italia');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (17, 'Valencia CF', 'La Liga', 'España');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (18, 'Tottenham Hotspur', 'Premier League', 'Inglaterra');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (19, 'Bayer Leverkusen', 'Bundesliga', 'Alemania');
+INSERT INTO equipo (id, nombre, liga, pais) VALUES (20, 'Marseille OM', 'Ligue 1', 'Francia');
