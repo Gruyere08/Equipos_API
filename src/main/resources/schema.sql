@@ -1,5 +1,5 @@
 CREATE TABLE equipo (
-    id BIGINT PRIMARY KEY,
+    id BIGINT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(255),
     liga VARCHAR(255),
     pais VARCHAR(255)
