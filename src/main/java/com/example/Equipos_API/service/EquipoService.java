@@ -32,7 +32,7 @@ public class EquipoService {
         return equipoRepository.save(equipo);
     }
 
-    public void delete(Equipo equipo){
-        equipoRepository.delete(equipo);
+    public void deleteById(Long id){
+        equipoRepository.deleteById(id);
     }
 }
