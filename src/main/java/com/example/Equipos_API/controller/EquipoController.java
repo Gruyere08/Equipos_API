@@ -2,19 +2,17 @@ package com.example.Equipos_API.controller;
 
 import com.example.Equipos_API.entity.Equipo;
 import com.example.Equipos_API.service.EquipoService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("/equipos")
+@RequiredArgsConstructor
 public class EquipoController {
 
     final EquipoService equipoService;
-
-    public EquipoController(EquipoService equipoService){
-        this.equipoService = equipoService;
-    }
 
     @GetMapping
     public List<Equipo> getAll(){
