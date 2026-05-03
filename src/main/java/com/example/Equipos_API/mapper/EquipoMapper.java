@@ -1,6 +1,7 @@
 package com.example.Equipos_API.mapper;
 
 import com.example.Equipos_API.dto.EquipoDTO;
+import com.example.Equipos_API.dto.EquipoUpdateDTO;
 import com.example.Equipos_API.entity.Equipo;
 import org.springframework.stereotype.Component;
 
@@ -21,6 +22,13 @@ public class EquipoMapper {
         dto.setPais(equipo.getPais());
         dto.setNombre(equipo.getNombre());
         return dto;
+    }
+
+    public Equipo toUpdatedEntity(EquipoUpdateDTO dto, Equipo equipo){
+        if (dto.getNombre() != null) equipo.setNombre(dto.getNombre());
+        if (dto.getPais() != null) equipo.setPais(dto.getPais());
+        if (dto.getLiga() != null) equipo.setLiga(dto.getLiga());
+        return equipo;
     }
 
 }

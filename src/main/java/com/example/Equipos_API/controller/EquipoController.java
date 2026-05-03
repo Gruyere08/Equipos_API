@@ -1,9 +1,11 @@
 package com.example.Equipos_API.controller;
 
 import com.example.Equipos_API.dto.EquipoDTO;
+import com.example.Equipos_API.dto.EquipoUpdateDTO;
 import com.example.Equipos_API.entity.Equipo;
 import com.example.Equipos_API.mapper.EquipoMapper;
 import com.example.Equipos_API.service.EquipoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -38,15 +40,15 @@ public class EquipoController {
 
 
     @PostMapping
-    public ResponseEntity<Equipo> save(@RequestBody EquipoDTO dto){
+    public ResponseEntity<Equipo> save(@Valid @RequestBody EquipoDTO dto){
         Equipo saved = equipoService.save(equipoMapper.toEntity(dto));
         return ResponseEntity.created(URI.create("/equipos/" + saved.getId())).body(saved);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Equipo> update(@RequestBody EquipoDTO dto, @PathVariable Long id){
-        Equipo equipo = equipoMapper.toEntity(dto);
-        equipo.setId(id);
+    public ResponseEntity<Equipo> update(@Valid @RequestBody EquipoUpdateDTO dto, @PathVariable Long id){
+        Equipo equipo = equipoService.getById(id);
+        equipo = equipoMapper.toUpdatedEntity(dto, equipo);
         return ResponseEntity.ok(equipoService.save(equipo));
     }
 
