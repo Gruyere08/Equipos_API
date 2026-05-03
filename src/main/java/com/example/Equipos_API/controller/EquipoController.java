@@ -1,50 +1,61 @@
 package com.example.Equipos_API.controller;
 
+import com.example.Equipos_API.dto.EquipoDTO;
+import com.example.Equipos_API.dto.EquipoUpdateDTO;
 import com.example.Equipos_API.entity.Equipo;
+import com.example.Equipos_API.mapper.EquipoMapper;
 import com.example.Equipos_API.service.EquipoService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.List;
 
 @RestController
 @RequestMapping("/equipos")
+@RequiredArgsConstructor
 public class EquipoController {
 
     final EquipoService equipoService;
 
-    public EquipoController(EquipoService equipoService){
-        this.equipoService = equipoService;
-    }
+    final EquipoMapper equipoMapper;
 
     @GetMapping
-    public List<Equipo> getAll(){
-        return equipoService.getAll();
+    public ResponseEntity<List<Equipo>> getAll(){
+        return ResponseEntity.ok(equipoService.getAll());
     }
 
     @GetMapping("/{id}")
-    public Equipo getById(@PathVariable Long id){
-        return equipoService.getById(id);
+    public ResponseEntity<Equipo> getById(@PathVariable Long id){
+        return ResponseEntity.ok(equipoService.getById(id));
     }
 
     @GetMapping("/buscar")
-    public List<Equipo> search(@RequestParam String nombre){
-        return equipoService.searchByNombre(nombre);
+    public ResponseEntity<List<Equipo>> search(@RequestParam String nombre){
+        return ResponseEntity.ok(equipoService.searchByNombre(nombre));
     }
 
+
+
     @PostMapping
-    public Equipo save(@RequestBody Equipo equipo){
-        return equipoService.save(equipo);
+    public ResponseEntity<Equipo> save(@Valid @RequestBody EquipoDTO dto){
+        Equipo saved = equipoService.save(equipoMapper.toEntity(dto));
+        return ResponseEntity.created(URI.create("/equipos/" + saved.getId())).body(saved);
     }
 
     @PutMapping("/{id}")
-    public Equipo update(@RequestBody Equipo equipo, @PathVariable Long id){
-        equipo.setId(id);
-        return equipoService.save(equipo);
+    public ResponseEntity<Equipo> update(@Valid @RequestBody EquipoUpdateDTO dto, @PathVariable Long id){
+        Equipo equipo = equipoService.getById(id);
+        equipo = equipoMapper.toUpdatedEntity(dto, equipo);
+        return ResponseEntity.ok(equipoService.save(equipo));
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(@PathVariable Long id){
         equipoService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
