@@ -34,6 +34,7 @@ public class EquipoService {
     }
 
     public void deleteById(Long id){
-        equipoRepository.deleteById(id);
+        Equipo equipo = getById(id);
+        equipoRepository.delete(equipo);
     }
 }
