@@ -1,6 +1,7 @@
 package com.example.Equipos_API.controller;
 
 import com.example.Equipos_API.dto.LoginRequest;
+import com.example.Equipos_API.dto.TokenResponse;
 import com.example.Equipos_API.service.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ public class AuthController {
     private final AuthService authService;
 
     @PostMapping("/login")
-    public String login(@RequestBody LoginRequest request) {
-        return authService.login(request);
+    public TokenResponse login(@RequestBody LoginRequest request) {
+        return new TokenResponse(authService.login(request));
     }
 }
