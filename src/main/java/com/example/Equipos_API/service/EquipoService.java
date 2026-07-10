@@ -1,6 +1,7 @@
 package com.example.Equipos_API.service;
 
 import com.example.Equipos_API.entity.Equipo;
+import com.example.Equipos_API.exception.EquipoNotFoundException;
 import com.example.Equipos_API.repository.EquipoRepository;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class EquipoService {
 
     public Equipo getById(Long id){
         return equipoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Equipo not found"));
+                .orElseThrow(() -> new EquipoNotFoundException("Equipo no encontrado"));
     }
 
     public List<Equipo> searchByNombre(String nombre){
@@ -33,6 +34,7 @@ public class EquipoService {
     }
 
     public void deleteById(Long id){
-        equipoRepository.deleteById(id);
+        Equipo equipo = getById(id);
+        equipoRepository.delete(equipo);
     }
 }
