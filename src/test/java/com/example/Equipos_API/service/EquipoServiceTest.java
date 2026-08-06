@@ -9,12 +9,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class EquipoServiceTest {
@@ -75,7 +75,7 @@ class EquipoServiceTest {
     void shouldThrowExceptionWhenIdDoesNotExist(){
         Long id = 1L;
         when(repository.findById(id)).thenReturn(Optional.empty());
-        //Assert (There's no act in this case because the serve wouldn't return anything)
+        //Assert (The method is expected to throw an exception before it can return a value, so the Act is performed inside assertThrows().)
         assertThrows(EquipoNotFoundException.class, ()-> service.getById(id));
         //verify (optional in this case)
         verify(repository).findById(id);
@@ -115,7 +115,32 @@ class EquipoServiceTest {
         verify(repository).save(equipo);
     }
 
+    @Test
+    void shouldDeleteEquipoWithTheSpecifiedId(){
+        Long id = 1L;
+        //Arrange
+        Equipo equipo = new Equipo(id, "Barcelona", "La liga", "España");
+        when(repository.findById(id)).thenReturn(Optional.of(equipo));
+        doNothing().when(repository).delete(equipo);
+        //act
+        service.deleteById(id);
+        //verify
+        verify(repository).findById(id);
+        verify(repository).delete(equipo);
 
+    }
+
+    @Test
+    void shouldThrowExceptionWhenDeletingNonExistingEquipo(){
+        Long id = 1L;
+        //Arrange
+        when(repository.findById(id)).thenReturn(Optional.empty());
+        //Assert/Act
+        assertThrows(EquipoNotFoundException.class, ()-> service.deleteById(id));
+        //verify
+        verify(repository).findById(id);
+        verify(repository, never()).delete(any());
+    }
 
 
 }
