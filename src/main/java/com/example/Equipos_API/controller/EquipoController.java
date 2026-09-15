@@ -83,22 +83,82 @@ public class EquipoController {
     }
 
 
-
+    @Operation(
+            summary = "saves a new team",
+            description = "Adds a new team to the database with the specified information",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "Information of the football team to create",
+                    required = true
+            )
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "Team succesfully saved"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "The object sent was incorrect"
+            )
+    })
     @PostMapping
-    public ResponseEntity<Equipo> save(@Valid @RequestBody EquipoDTO dto){
+    public ResponseEntity<Equipo> save(
+            @Valid @RequestBody EquipoDTO dto){
         Equipo saved = equipoService.save(equipoMapper.toEntity(dto));
         return ResponseEntity.created(URI.create("/equipos/" + saved.getId())).body(saved);
     }
 
+    @Operation(
+            summary = "Updates a team",
+            description = "Updates an existing team with new information",
+            requestBody = @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "New information to update the designated team",
+                    required = true
+            )
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Team updated correctly"
+            ),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "The object sent was incorrect"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Team not found"
+            )
+    })
     @PutMapping("/{id}")
-    public ResponseEntity<Equipo> update(@Valid @RequestBody EquipoUpdateDTO dto, @PathVariable Long id){
+    public ResponseEntity<Equipo> update(
+            @Parameter(description = "A valid EquipoUpdateDTO object")
+            @Valid @RequestBody EquipoUpdateDTO dto,
+            @Parameter(description = "The unique identifier of a team")
+            @PathVariable Long id){
         Equipo equipo = equipoService.getById(id);
         equipo = equipoMapper.toUpdatedEntity(dto, equipo);
         return ResponseEntity.ok(equipoService.save(equipo));
     }
 
+    @Operation(
+            summary = "Deletes a team",
+            description = "Deletes a team with the given id"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Team deleted successfully"
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Team not found"
+            )
+    })
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable Long id){
+    public ResponseEntity<Void> delete(
+            @Parameter(description = "The unique identifier of a team")
+            @PathVariable Long id){
         equipoService.deleteById(id);
         return ResponseEntity.noContent().build();
     }
